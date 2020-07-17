@@ -1,0 +1,108 @@
+#!/bin/bash
+
+###########################################
+#
+# Author: Jason Cheng (jason@jason.tools)
+# Date: 2020/07/13
+#
+# Please note that your nrpe target needs 
+# to run "visudo" and add this line:
+# "nagios ALL=NOPASSWD: /bin/systemctl"
+#
+###########################################
+
+
+STATE_OK=0
+STATE_WARNING=1
+STATE_CRITICAL=2
+STATE_UNKNOWN=3
+VERSION="v1.0"
+
+usage ()
+{
+    echo "check_pmg_services Nagios plugin by Jason Cheng (jason@jason.tools)"
+    echo "Usage: check_pmg_services [-v]"
+    echo "Options: "
+    echo "-v    Show version"
+    exit $STATE_UNKNOWN
+}
+
+if [ $# -eq 0 ]; then
+        usage;
+        exit $STATE_UNKOWN
+fi
+if [ ! $# ]; then
+        usage;
+        exit $STATE_UNKOWN
+fi
+
+warn=""
+crit=""
+while [ $# -ne 0 ]
+do
+   case "$1" in
+      -v | --version)
+      echo "check_pmg_services $VERSION"
+      exit $STATE_OK
+      ;;
+      -w)
+      shift
+      warn="x"
+      ;;
+      -c)
+      shift
+      crit="x"
+      ;;
+      *)
+      usage
+      exit $STATE_UNKNOWN
+      ;;
+   esac
+   shift
+done
+
+if [ "$warn" != "" ]
+then
+        if [ "$crit" != "" ]
+        then
+                usage
+                exit $STATE_UNKNOWN
+        fi
+        STATE_PROBLEM=$STATE_WARNING
+fi
+if [ "$crit" != "" ]
+then
+        STATE_PROBLEM=$STATE_CRITICAL
+fi
+
+
+# Get pmg main service status
+sudo /bin/systemctl -a | grep 'clamav-freshclam' > /tmp/pmg_services.txt
+sudo /bin/systemctl -a | grep 'pmg' | grep -v 'sync\|net\|report\|daily\|hourly\|.timer\|.target\|banner' >> /tmp/pmg_services.txt
+sudo /bin/systemctl -a | grep 'postfix@-.service' >> /tmp/pmg_services.txt
+sudo /bin/systemctl -a | grep 'postgres@11' >> /tmp/pmg_services.txt
+sudo /bin/systemctl -a | grep 'rsyslog' >> /tmp/pmg_services.txt
+sudo /bin/systemctl -a | grep 'ssh' >> /tmp/pmg_services.txt
+
+# Statistics on the number of failed services
+number_serv_failed=`cat /tmp/pmg_services.txt | grep -e 'failed\|dead\|exited' | wc -l`
+
+if [ "$number_serv_failed" == "0" ]
+then
+
+    getmsg="All services are up and running"
+    #getresult=`cat /tmp/pmg_services.txt | awk '{print "("$4")",$5,$6,$7,$8,$10,$11,$12}' | grep -v 'failed\|dead\|exited'`
+    #getresult2=`echo $getresult | tr "\n\r" " | "`
+    echo $getmsg$getresult2
+    rm -f /tmp/pmg_services.txt
+    exit $STATE_OK
+
+else
+
+    getmsg="Some services have been failed - "
+    getresult=`cat /tmp/pmg_services.txt | awk '{print "("$4")",$5,$6,$7,$8,$10,$11,$12}' | grep -e 'failed\|dead\|exited'`
+    getresult2=`echo $getresult | tr "\n\r" " - "`
+    echo $getmsg$getresult2
+    rm -f /tmp/pmg_services.txt
+    exit $STATE_PROBLEM
+fi
