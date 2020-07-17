@@ -29,10 +29,13 @@ Primarily for use with LibreNMS, with check_nrpe for Proxmox MG important servic
    
 ## 使用方式 Usage
 
-請使用以下指令，參數 -c 後任意值皆可。
+將 check_pmg_services 複製到 Proxmox MG 主機 /usr/lib/nagios/plugins 裡，在該主機使用以下指令，參數 -c 後任意值皆可。
 只要有任一上述檢查項目的服務沒有正常運作，即視為服務異常。
   
-```./check_pmg_services -c 1```
+```/usr/lib/nagios/plugins/check_pmg_services -c 1```
+  
+    
+若要使用 Nagios/LibreNMS/Icinga2 連線過來檢測，請在 Proxmox MG 主機安裝 NRPE Server，再於 NRPE 的設定檔中建立 command 指到 ```/usr/lib/nagios/plugins/check_pmg_services -c 1```（詳細請參考 NRPE 使用方式）
 
    
 &nbsp;&nbsp;
