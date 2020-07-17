@@ -2,19 +2,24 @@
 Proxmox MG 服務檢查 for Nagios/LibreNMS/Icinga2
 
 主要寫給 LibreNMS 使用，以 check_nrpe 進行 Proxmox MG 重要服務檢查。  
-**注意：需要搭配 NRPE 使用**
+
+
+   
+&nbsp;&nbsp;
+&nbsp;&nbsp;
+  
 
 ## 檢查項目
-* clamav-freshclam.service (ClamAV virus database updater)
-* pmg-smtp-filter.service (Proxmox SMTP Filter Daemon)
-* pmgdaemon.service (Proxmox Mail Gateway API Daemon)
-* pmgmirror.service (Proxmox Mail Gateway Database Mirror Daemon)
-* pmgpolicy.service (Proxmox Mail Gateway Policy Daemon)
-* pmgproxy.service (Proxmox Mail Gateway API)
-* pmgtunnel.service (Proxmox Mail Gateway Cluster Tunnel Daemon)
-* postfix@-.service (Postfix Mail Transport Agent (instance -))
-* rsyslog.service (System Logging Service)
-* ssh.service (OpenBSD Secure Shell server)
+* `clamav-freshclam.service (ClamAV virus database updater)`
+* `pmg-smtp-filter.service (Proxmox SMTP Filter Daemon)`
+* `pmgdaemon.service (Proxmox Mail Gateway API Daemon)`
+* `pmgmirror.service (Proxmox Mail Gateway Database Mirror Daemon)`
+* `pmgpolicy.service (Proxmox Mail Gateway Policy Daemon)`
+* `pmgproxy.service (Proxmox Mail Gateway API)`
+* `pmgtunnel.service (Proxmox Mail Gateway Cluster Tunnel Daemon)`
+* `postfix@-.service (Postfix Mail Transport Agent (instance -))`
+* `rsyslog.service (System Logging Service)`
+* `ssh.service (OpenBSD Secure Shell server)`
 
 
    
