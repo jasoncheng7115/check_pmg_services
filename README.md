@@ -25,7 +25,7 @@ Proxmox MG 服務檢查 for Nagios/LibreNMS/Icinga2
 
 請使用以下指令，參數 -c 後任意值皆可。
 只要有任一上述檢查項目的服務沒有正常運作，即視為服務異常。
-```./check_pmg_services -c 1
+```./check_pmg_services -c 1```
 
    
 &nbsp;&nbsp;
