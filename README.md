@@ -3,7 +3,7 @@ Proxmox MG 服務檢查，支援 Nagios/LibreNMS/Icinga2。
 主要寫給 LibreNMS 使用，以 check_nrpe 進行 Proxmox MG 重要服務檢查。    
 
 Proxmox MG Service Check with Nagios/LibreNMS/Icinga2 support.
-Primarily for use with LibreNMS, with check_nrpe for Proxmox MG Important Service Check.  
+Primarily for use with LibreNMS, with check_nrpe for Proxmox MG important service check.  
 
    
 &nbsp;&nbsp;
