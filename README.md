@@ -1,4 +1,5 @@
 # check_pmg_services
+  
 Proxmox MG 服務檢查，支援 Nagios/LibreNMS/Icinga2。  
 主要寫給 LibreNMS 使用，以 check_nrpe 進行 Proxmox MG 重要服務檢查。    
 
@@ -37,7 +38,7 @@ Primarily for use with LibreNMS, with check_nrpe for Proxmox MG important servic
 ```/usr/lib/nagios/plugins/check_pmg_services -c 1```
   
   
-### 遠端檢測 Remote Check
+### 遠端檢測 Remote check
   
     
 若要使用 Nagios/LibreNMS/Icinga2 連線過來檢測，請在 Proxmox MG 主機安裝 NRPE Server，再於 NRPE 的設定檔中建立 command 指到 ```/usr/lib/nagios/plugins/check_pmg_services -c 1```（詳細請參考 NRPE 使用方式）
