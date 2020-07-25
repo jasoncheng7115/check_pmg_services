@@ -3,6 +3,7 @@
 ################################################################################################
 #
 # Author: Jason Cheng (jason@jason.tools)
+# Blog: blog.jason.tools
 # Date: 2020/07/13
 #
 # Please note that your nrpe target needs to run "visudo" and add this line:
